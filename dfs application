@@ -1,0 +1,54 @@
+def dfs(maze, start, end, path, visited):
+    # Get the current position
+    x, y = start
+    
+    # If the current position is the end, return True
+    if start == end:
+        path.append(start)
+        return True
+    
+    # Mark the current position as visited
+    visited.add(start)
+    
+    # Explore all possible directions (right, down, left, up)
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    for direction in directions:
+        next_x, next_y = x + direction[0], y + direction[1]
+        next_position = (next_x, next_y)
+        
+        # Check if the next position is within the maze and is walkable and not visited
+        if 0 <= next_x < len(maze) and 0 <= next_y < len(maze[0]) and maze[next_x][next_y] == 0 and next_position not in visited:
+            # Add the current position to the path
+            path.append(start)
+            
+            # Recursively apply DFS
+            if dfs(maze, next_position, end, path, visited):
+                return True
+            
+            # If not a valid path, backtrack
+            path.pop()
+    
+    return False
+
+# Define the maze
+maze = [
+    [0, 1, 0, 0, 0],
+    [0, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0],
+    [1, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0]
+]
+
+# Define start and end points
+start = (0, 0)
+end = (4, 4)
+
+# Initialize path and visited set
+path = []
+visited = set()
+
+# Call DFS to find the path
+if dfs(maze, start, end, path, visited):
+    print("Path found:", path)
+else:
+    print("No path found")
