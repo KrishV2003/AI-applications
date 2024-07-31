@@ -1,0 +1,19 @@
+def insertion_sort(cards):
+    for i in range(1, len(cards)):
+        key = cards[i]
+        j = i - 1
+        # Move elements of cards[0..i-1], that are greater than key, to one position ahead
+        # of their current position
+        while j >= 0 and key < cards[j]:
+            cards[j + 1] = cards[j]
+            j -= 1
+        cards[j + 1] = key
+    return cards
+
+# Define the hand of cards
+hand_of_cards = [7, 3, 9, 1, 6]
+
+# Call Insertion Sort to sort the hand
+sorted_hand = insertion_sort(hand_of_cards)
+
+print("Sorted hand of cards:", sorted_hand)
